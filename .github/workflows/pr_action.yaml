@@ -20,10 +20,12 @@ jobs:
          BASE_SHA: ${{ github.event.pull_request.base.sha }}
        run: |
          pwd
+         ls
          echo $PR_AUTHOR
          echo $HEAD_SHA
          echo $BASE_SHA
          git branch
-         git log|head
+         git log | wc -l
+         git log
          git diff --name-only --diff-filter=M "$BASE_SHA"..HEAD
 
