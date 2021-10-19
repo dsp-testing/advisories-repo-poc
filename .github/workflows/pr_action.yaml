@@ -23,5 +23,7 @@ jobs:
          echo $PR_AUTHOR
          echo $HEAD_SHA
          echo $BASE_SHA
+         git branch
+         git log|head
          git diff --name-only --diff-filter=M "$BASE_SHA".."$HEAD_SHA"
 
