@@ -14,14 +14,14 @@ jobs:
        with:
         fetch_depth: 0
      - name: Check all modified files
-       with:
+       env:
          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
          BASE_SHA: ${{ github.event.pull_request.base.sha }}
        run: |
          pwd
-         echo $INPUT_PR_AUTHOR
-         echo $INPUT_HEAD_SHA
-         echo $INPUT_BASE_SHA
+         echo $PR_AUTHOR
+         echo $HEAD_SHA
+         echo $BASE_SHA
          git diff --name-only --diff-filter=M "$INPUT_BASE_SHA".."$INPUT_HEAD_SHA"
 
