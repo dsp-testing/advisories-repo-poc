@@ -12,7 +12,7 @@ jobs:
     steps:
      - uses: actions/checkout@v2
        with:
-        fetch_depth: 0
+        fetch-depth: 0
      - name: Check all modified files
        env:
          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
@@ -26,6 +26,5 @@ jobs:
          echo $BASE_SHA
          git branch
          git log | wc -l
-         git log
          git diff --name-only --diff-filter=M "$BASE_SHA"..HEAD
 
