@@ -23,5 +23,6 @@ jobs:
          echo $PR_AUTHOR
          echo $HEAD_SHA
          echo $BASE_SHA
+         cd advisories-repo-poc
          git diff --name-only --diff-filter=M "$INPUT_BASE_SHA".."$INPUT_HEAD_SHA"
 
