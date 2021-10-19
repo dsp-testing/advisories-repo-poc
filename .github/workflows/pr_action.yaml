@@ -20,6 +20,7 @@ jobs:
          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
          BASE_SHA: ${{ github.event.pull_request.base.sha }}
        run: |
+         set -xeo pipefail
          pwd
          ls
          echo $PR_AUTHOR
@@ -37,6 +38,6 @@ jobs:
          git add edits
          git commit -m "automated edits"
          git push
-         git checkout main
+         git checkout main advisories
          git merge staging-branch
          git push
