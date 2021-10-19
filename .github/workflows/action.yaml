@@ -1,9 +1,6 @@
 name: Example
 
 on:
-  push:
-    branches:
-      - staging-branch
   workflow_dispatch:
 
 jobs:

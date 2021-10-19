@@ -1,0 +1,42 @@
+name: PR action
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [staging-branch]
+  workflow_dispatch:
+
+jobs:
+  do-the-thing:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+       with:
+        fetch-depth: 0
+     - name: move edited files and push to main
+       env:
+         PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+         HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+         BASE_SHA: ${{ github.event.pull_request.base.sha }}
+       run: |
+         pwd
+         ls
+         echo $PR_AUTHOR
+         echo $HEAD_SHA
+         echo $BASE_SHA
+         git branch
+         git log | wc -l
+         modified_files=$(git diff --name-only --diff-filter=M "$BASE_SHA".."$HEAD_SHA")
+         for file in $modified_files; do
+           mkdir -p edits/$PR_AUTHOR/
+           cp $file edits/$PR_AUTHOR/
+         done;
+
+         git checkout main advisories
+         git add edits
+         git commit -m "automated edits"
+         git push
+         git checkout main
+         git merge staging-branch
+         git push
