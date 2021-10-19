@@ -13,4 +13,5 @@ jobs:
        run: |
          pwd
          ls
+         git branch
          git log|head
