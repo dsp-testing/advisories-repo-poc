@@ -34,10 +34,10 @@ jobs:
            cp $file edits/$PR_AUTHOR/
          done;
 
-         git checkout main advisories
+         git checkout origin/main advisories
          git add edits
          git commit -m "automated edits"
          git push
-         git checkout main advisories
+         git checkout origin/main
          git merge staging-branch
          git push
