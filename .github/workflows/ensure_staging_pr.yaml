@@ -18,4 +18,4 @@ jobs:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        run: |
          set -xeo pipefail
-         gh pr edit $PR_NUMBER --base staging-branch
+         gh pr edit --repo ${{ github.repository }} $PR_NUMBER --base staging-branch
