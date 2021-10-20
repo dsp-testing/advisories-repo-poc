@@ -30,7 +30,7 @@ jobs:
          git log | wc -l
          git config --local user.name 'github-actions[bot]'
          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
-         modified_files=$(git diff --name-only --diff-filter=M "$BASE_SHA".."$HEAD_SHA")
+         modified_files=$(git diff --name-only --diff-filter=M "$BASE_SHA".."$HEAD_SHA"|grep '^advisories')
          for file in $modified_files; do
            mkdir -p edits/$PR_AUTHOR/
            cp $file edits/$PR_AUTHOR/
