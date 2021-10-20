@@ -40,6 +40,6 @@ jobs:
          git add edits
          git commit -m "automated edits"
          git push
-         git checkout origin/main
+         git checkout -t origin/main
          git merge staging-branch
          git push main
