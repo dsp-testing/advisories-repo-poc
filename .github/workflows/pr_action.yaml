@@ -42,4 +42,4 @@ jobs:
          git push
          git checkout -t origin/main
          git merge staging-branch
-         git push main
+         git push origin main
