@@ -15,6 +15,7 @@ jobs:
      - name: ensure base is staging
        env:
          PR_NUMBER: ${{ github.event.pull_request.number }}
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        run: |
          set -xeo pipefail
          gh pr edit $PR_NUMBER --base staging-branch
