@@ -1,0 +1,20 @@
+name: Convert PRs into edits
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - "advisories/**"
+  workflow_dispatch:
+
+jobs:
+  ensure-base-is-staging:
+    runs-on: ubuntu-latest
+    steps:
+     - name: ensure base is staging
+       env:
+         PR_NUMBER: ${{ github.event.pull_request.number }}
+       run: |
+         set -xeo pipefail
+         gh pr edit $PR_NUMBER --base staging-branch

@@ -1,4 +1,4 @@
-name: PR action
+name: Convert PRs into edits
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  do-the-thing:
+  convert-pr-to-edit:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
