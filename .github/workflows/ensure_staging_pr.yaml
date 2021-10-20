@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened, edited]
     paths:
       - "advisories/**"
-  push:
+  # push:
   workflow_dispatch:
 
 jobs:
