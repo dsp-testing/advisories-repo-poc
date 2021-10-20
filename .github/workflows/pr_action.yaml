@@ -28,6 +28,8 @@ jobs:
          echo $BASE_SHA
          git branch
          git log | wc -l
+         git config --local user.name 'github-actions[bot]'
+         git config --local user.email 'github-actions[bot]@users.noreply.github.com'
          modified_files=$(git diff --name-only --diff-filter=M "$BASE_SHA".."$HEAD_SHA")
          for file in $modified_files; do
            mkdir -p edits/$PR_AUTHOR/
@@ -40,4 +42,4 @@ jobs:
          git push
          git checkout origin/main
          git merge staging-branch
-         git push
+         git push main
