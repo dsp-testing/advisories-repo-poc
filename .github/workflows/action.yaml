@@ -1,15 +1,29 @@
 name: Example
 
 on:
-  - workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   if:
     runs-on: ubuntu-latest
     steps:
      - uses: actions/checkout@v2
+       with:
+         ref: "main"
+         path: "main"
+     - uses: actions/checkout@v2
+       with:
+         ref: "staging-branch"
+         path: "staging"
+
      - name: Check all modified files
        run: |
          pwd
          ls
+         cd main
+         git branch
+         git log|head
+         cd ..
+         cd staging
+         git branch
          git log|head

@@ -3,6 +3,7 @@ name: PR action
 on:
   pull_request:
     types: [closed]
+    branches: [staging-branch]
   workflow_dispatch:
 
 jobs:
@@ -13,12 +14,13 @@ jobs:
      - uses: actions/checkout@v2
        with:
         fetch-depth: 0
-     - name: Check all modified files
+     - name: move edited files and push to main
        env:
          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
          BASE_SHA: ${{ github.event.pull_request.base.sha }}
        run: |
+         set -xeo pipefail
          pwd
          ls
          echo $PR_AUTHOR
@@ -26,5 +28,18 @@ jobs:
          echo $BASE_SHA
          git branch
          git log | wc -l
-         git diff --name-only --diff-filter=M "$BASE_SHA"..HEAD
+         git config --local user.name 'github-actions[bot]'
+         git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+         modified_files=$(git diff --name-only --diff-filter=M "$BASE_SHA".."$HEAD_SHA")
+         for file in $modified_files; do
+           mkdir -p edits/$PR_AUTHOR/
+           cp $file edits/$PR_AUTHOR/
+         done;
 
+         git checkout origin/main advisories
+         git add edits
+         git commit -m "automated edits"
+         git push
+         git checkout origin/main
+         git merge staging-branch
+         git push main
